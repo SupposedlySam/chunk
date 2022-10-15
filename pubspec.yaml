@@ -10,3 +10,7 @@ dependencies:
 
 dev_dependencies:
   test: ^1.21.4
+
+# Requires globally activating derry to use
+# flutter pub global activate derry
+scripts: derry.yaml

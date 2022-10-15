@@ -15,10 +15,10 @@ final chunker = Chunker<String, String>(
   final isFirstRun = cursor == null;
 
   return isFirstRun
-    ? dataSouce.take(limit)
+    ? dataSource.take(limit)
     : dataSource
       .skipWhile((value) => value != cursor)
-      .skip(1) // Start afer the previous cursor
+      .skip(1) // Start after the previous cursor
       .take(limit);
   },
 );

@@ -25,7 +25,7 @@ class Chunker<DataType, CursorType> {
   /// Called to retrieve the next `n` number of items from your data source.
   ///
   /// Use the provided [cursor] and [limit] to skip and get the next 'n' number
-  /// of items. The cursor will be the itentifier selected using the
+  /// of items. The cursor will be the identifier selected using the
   /// [cursorSelector] from the last time the [getNext] method was called.
   ///
   /// If the [cursor] is `null`, this is the first time the method is being run

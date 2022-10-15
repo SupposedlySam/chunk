@@ -11,7 +11,7 @@ void main(List<String> arguments) async {
           ? countries.take(limit)
           : countries
               .skipWhile((value) => value != cursor)
-              .skip(1) // Start afer the previous cursor
+              .skip(1) // Start after the previous cursor
               .take(limit);
 
       return data.toList();
