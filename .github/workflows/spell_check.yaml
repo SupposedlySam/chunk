@@ -6,6 +6,7 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
     with:
+      config: ".github/cspell/cspell.json"
       includes: |
         **/*.{dart,md,yaml}
         !.dart_tool/**/*.{dart,yaml}
