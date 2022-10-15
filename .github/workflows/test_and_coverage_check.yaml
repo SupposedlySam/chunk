@@ -2,5 +2,5 @@ name: Test & Coverage Check
 on: pull_request
 
 jobs:
-  build:
+  test_and_coverage:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
