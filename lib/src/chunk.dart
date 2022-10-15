@@ -9,7 +9,7 @@ enum ChunkStatus {
   last,
 }
 
-/// A subset of data retreived from a data source.
+/// A subset of data retrieved from a data source.
 ///
 /// A [Chunk] is used to store what the last "chunk" of retrieved data was.
 ///
