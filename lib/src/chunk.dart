@@ -77,6 +77,6 @@ class Chunk<T, CursorType> extends Equatable {
 
   @override
   String toString() {
-    return "Chunk(data:$data, cursor: $cursor, limit: $limit, status: ${status.name})";
+    return "Chunk(data: $data, cursor: $cursor, limit: $limit, status: ${status.name})";
   }
 }
