@@ -1,4 +1,4 @@
-name: chunk
+name: Test & Coverage Check
 on: pull_request
 
 jobs:
