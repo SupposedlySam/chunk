@@ -2,6 +2,12 @@ import 'package:chunk/chunk.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('should print human readable version', () {
+    final expectedValue =
+        "Chunk(data: [], cursor: null, limit: ${Chunk.defaultLimit}, status: ${ChunkStatus.nextAvailable.name})";
+    expect(Chunk().toString(), expectedValue);
+  });
+
   test('should be equal by value', () {
     expect(Chunk(), Chunk());
     expect(Chunk(limit: 10), Chunk(limit: 10));
