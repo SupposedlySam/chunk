@@ -1,0 +1,12 @@
+name: chunk
+description: A package used to agnostically chunk and paginate your data
+version: 1.0.0
+
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+
+dev_dependencies:
+  test: ^1.21.4
