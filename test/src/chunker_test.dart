@@ -29,6 +29,12 @@ void main() {
     dataChunkerCalls.clear();
   });
 
+  test('should use default Chunk limit for explicit null', () async {
+    final chunk = await chunker.getNext(null);
+
+    expect(chunk.limit, Chunk.defaultLimit);
+  });
+
   group('#dataChunker callback', () {
     test('when data is less than limit', () async {
       final limit = 10;
