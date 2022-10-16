@@ -1,18 +1,5 @@
-[![build](https://github.com/felangel/bloc/workflows/build/badge.svg)](https://github.com/felangel/bloc/actions)
-
 # flutter_infinite_list
 
-A new Flutter project.
+This example is a modified version of the [Infinite List Tutorial](https://bloclibrary.dev/#/flutterinfinitelisttutorial) created for the [bloc library](https://pub.dev/packages/bloc).
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+See usage of the `chunk` package in the [post_bloc](/lib/posts/bloc/post_bloc.dart) and [post_state](/lib/posts/bloc/post_state.dart) files.
