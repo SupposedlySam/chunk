@@ -32,7 +32,7 @@ class PostState extends Equatable {
   @override
   String toString() {
     final readableChunk =
-        '''Chunk(dataLength: ${chunk.data.length}, cursor: ${chunk.cursor}, limit: ${chunk.limit})''';
+        '''Chunk(dataLength: ${chunk.data.length}, cursor: ${chunk.cursor}, limit: ${chunk.limit}, status: ${chunk.status.name})''';
     return '''PostState { chunk: $readableChunk, status: $status, hasReachedMax: $hasReachedMax, posts: ${posts.length} }''';
   }
 
