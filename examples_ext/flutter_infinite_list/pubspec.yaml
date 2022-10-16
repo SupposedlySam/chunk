@@ -8,6 +8,8 @@ environment:
 
 dependencies:
   bloc_concurrency:
+  chunk:
+    path: ../..
   equatable: ^2.0.3
   flutter:
     sdk: flutter
