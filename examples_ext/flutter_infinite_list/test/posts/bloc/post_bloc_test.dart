@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:chunk/chunk.dart';
 import 'package:flutter_infinite_list/posts/bloc/post_bloc.dart';
 import 'package:flutter_infinite_list/posts/models/post.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -57,8 +58,17 @@ void main() {
         },
         build: () => PostBloc(httpClient: httpClient),
         act: (bloc) => bloc.add(PostFetched()),
-        expect: () => const <PostState>[
-          PostState(status: PostStatus.success, posts: mockPosts)
+        expect: () => <PostState>[
+          PostState(
+            status: PostStatus.success,
+            posts: mockPosts,
+            chunk: Chunk.last(
+              data: mockPosts,
+              cursor: mockPosts.last.id,
+              limit: 20,
+            ),
+            hasReachedMax: true,
+          )
         ],
         verify: (_) {
           verify(() => httpClient.get(_postsUrl(start: 0))).called(1);
@@ -79,8 +89,17 @@ void main() {
         act: (bloc) => bloc
           ..add(PostFetched())
           ..add(PostFetched()),
-        expect: () => const <PostState>[
-          PostState(status: PostStatus.success, posts: mockPosts)
+        expect: () => <PostState>[
+          PostState(
+            status: PostStatus.success,
+            posts: mockPosts,
+            chunk: Chunk.last(
+              data: mockPosts,
+              cursor: mockPosts.last.id,
+              limit: 20,
+            ),
+            hasReachedMax: true,
+          )
         ],
         verify: (_) {
           verify(() => httpClient.get(any())).called(1);
@@ -103,8 +122,17 @@ void main() {
           await Future<void>.delayed(Duration.zero);
           bloc.add(PostFetched());
         },
-        expect: () => const <PostState>[
-          PostState(status: PostStatus.success, posts: mockPosts)
+        expect: () => <PostState>[
+          PostState(
+            status: PostStatus.success,
+            posts: mockPosts,
+            chunk: Chunk.last(
+              data: mockPosts,
+              cursor: mockPosts.last.id,
+              limit: 20,
+            ),
+            hasReachedMax: true,
+          )
         ],
         verify: (_) {
           verify(() => httpClient.get(any())).called(1);
@@ -145,10 +173,15 @@ void main() {
             status: PostStatus.success,
             posts: mockPosts,
             hasReachedMax: true,
+            chunk: Chunk.last(
+              data: [],
+              cursor: null,
+              limit: 20,
+            ),
           )
         ],
         verify: (_) {
-          verify(() => httpClient.get(_postsUrl(start: 1))).called(1);
+          verify(() => httpClient.get(_postsUrl(start: 0))).called(1);
         },
       );
 
@@ -164,17 +197,31 @@ void main() {
           });
         },
         build: () => PostBloc(httpClient: httpClient),
-        seed: () => const PostState(
+        seed: () => PostState(
           status: PostStatus.success,
           posts: mockPosts,
+          chunk: Chunk.next(
+            data: mockPosts,
+            cursor: mockPosts.last.id,
+            limit: 20,
+          ),
         ),
         act: (bloc) => bloc.add(PostFetched()),
-        expect: () => const <PostState>[
-          PostState(
-            status: PostStatus.success,
-            posts: [...mockPosts, ...extraMockPosts],
-          )
-        ],
+        expect: () {
+          const posts = [...mockPosts, ...extraMockPosts];
+          return <PostState>[
+            PostState(
+              status: PostStatus.success,
+              posts: posts,
+              hasReachedMax: true,
+              chunk: Chunk.last(
+                data: extraMockPosts,
+                cursor: extraMockPosts.last.id,
+                limit: 20,
+              ),
+            )
+          ];
+        },
         verify: (_) {
           verify(() => httpClient.get(_postsUrl(start: 1))).called(1);
         },
