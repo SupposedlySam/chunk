@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:chunk/chunk.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_infinite_list/posts/posts.dart';
 import 'package:http/http.dart' as http;
@@ -11,7 +12,6 @@ import 'package:stream_transform/stream_transform.dart';
 part 'post_event.dart';
 part 'post_state.dart';
 
-const _postLimit = 20;
 const throttleDuration = Duration(milliseconds: 100);
 
 EventTransformer<E> throttleDroppable<E>(Duration duration) {
@@ -22,6 +22,10 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 
 class PostBloc extends Bloc<PostEvent, PostState> {
   PostBloc({required this.httpClient}) : super(const PostState()) {
+    chunker = Chunker<Post, int>(
+      cursorSelector: (post) => post.id,
+      dataChunker: _fetchPosts,
+    );
     on<PostFetched>(
       _onPostFetched,
       transformer: throttleDroppable(throttleDuration),
@@ -29,6 +33,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   }
 
   final http.Client httpClient;
+  late final Chunker<Post, int> chunker;
 
   Future<void> _onPostFetched(
     PostFetched event,
@@ -36,37 +41,28 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   ) async {
     if (state.hasReachedMax) return;
     try {
-      if (state.status == PostStatus.initial) {
-        final posts = await _fetchPosts();
-        return emit(
-          state.copyWith(
-            status: PostStatus.success,
-            posts: posts,
-            hasReachedMax: false,
-          ),
-        );
-      }
-      final posts = await _fetchPosts(state.posts.length);
-      posts.isEmpty
-          ? emit(state.copyWith(hasReachedMax: true))
-          : emit(
-              state.copyWith(
-                status: PostStatus.success,
-                posts: List.of(state.posts)..addAll(posts),
-                hasReachedMax: false,
-              ),
-            );
+      final nextChunk = await chunker.getNext(state.chunk);
+
+      emit(
+        state.copyWith(
+          status: PostStatus.success,
+          posts: List.of(state.posts)..addAll(nextChunk.data),
+          hasReachedMax: nextChunk.status == ChunkStatus.last,
+          chunk: nextChunk,
+        ),
+      );
     } catch (_) {
       emit(state.copyWith(status: PostStatus.failure));
     }
   }
 
-  Future<List<Post>> _fetchPosts([int startIndex = 0]) async {
+  Future<List<Post>> _fetchPosts(int? cursor, int limit) async {
+    final startIndex = cursor ?? 0;
     final response = await httpClient.get(
       Uri.https(
         'jsonplaceholder.typicode.com',
         '/posts',
-        <String, String>{'_start': '$startIndex', '_limit': '$_postLimit'},
+        <String, String>{'_start': '$startIndex', '_limit': '$limit'},
       ),
     );
     if (response.statusCode == 200) {
