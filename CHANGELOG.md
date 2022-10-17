@@ -1,3 +1,10 @@
+## 1.0.1
+
+### Updates Examples & Readme
+
+- Adds `flutter_infinite_list` example under `examples_ext`.
+- Updates `README.md` to include links to example apps.
+
 ## 1.0.0
 
 ### Initial Release
