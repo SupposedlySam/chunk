@@ -1,3 +1,9 @@
+## 1.0.1+1
+
+### Updates Example Readme
+
+- Corrects a misnomer in the dart example where `countries` were referenced instead of `states`.
+
 ## 1.0.1
 
 ### Updates Examples & Readme
