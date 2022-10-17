@@ -1,6 +1,7 @@
 name: chunk
 description: A package used to agnostically chunk and paginate your data
 version: 1.0.1
+repository: https://github.com/SupposedlySam/chunk
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
