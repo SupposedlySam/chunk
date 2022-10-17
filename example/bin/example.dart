@@ -8,8 +8,8 @@ void main(List<String> arguments) async {
       final isFirstRun = cursor == null;
 
       final data = isFirstRun
-          ? countries.take(limit)
-          : countries
+          ? states.take(limit)
+          : states
               .skipWhile((value) => value != cursor)
               .skip(1) // Start after the previous cursor
               .take(limit);

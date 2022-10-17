@@ -1,4 +1,4 @@
-A simple command line program to print out US Countries in `Chunks`.
+A simple command line program to print out US States in `Chunks`.
 
 View the application in the [example.dart](./bin/example.dart) file and run it in the command line with `dart run`.
 

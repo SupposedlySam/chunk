@@ -1,8 +1,8 @@
 // See the bin/example.dart file to see the code.
 // Run this application in the command line using `dart run`
 
-/// List of all US Countries
-List<String> countries = [
+/// List of all US States
+List<String> states = [
   "Alabama",
   "Alaska",
   "Arizona",
