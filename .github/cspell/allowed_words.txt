@@ -1,3 +1,8 @@
 abcdefghijklmnopqrstuvwkyz
 agnostically
 chunker
+jsonplaceholder
+mocktail
+typicode
+xcassets
+xcworkspace

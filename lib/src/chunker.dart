@@ -29,7 +29,8 @@ class Chunker<DataType, CursorType> {
   /// [cursorSelector] from the last time the [getNext] method was called.
   ///
   /// If the [cursor] is `null`, this is the first time the method is being run
-  /// for this data source. Alternatively, it is possible to also receive a null cursor if the
+  /// for this data source, or [getNext] was given a [Chunk] built without a
+  /// cursor.
   ///
   /// The [limit] is the maximum amount of items the method expects to receive
   /// when being invoked.

@@ -1,16 +1,18 @@
 name: chunk
 description: A package used to agnostically chunk and paginate your data
-version: 1.0.1+1
+version: 1.1.0
 repository: https://github.com/SupposedlySam/chunk
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: ^3.0.0
 
 dependencies:
-  equatable: ^2.0.3
+  # 3.x dropped runtimeType from equality; Chunk has no subclasses, so its
+  # equality is the same on either major version.
+  equatable: ">=2.0.5 <4.0.0"
 
 dev_dependencies:
-  test: ^1.21.4
+  test: ^1.25.0
 
 # Requires globally activating derry to use
 # flutter pub global activate derry
