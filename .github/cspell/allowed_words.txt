@@ -1,3 +1,7 @@
 abcdefghijklmnopqrstuvwkyz
 agnostically
-chunker
+chunkerjsonplaceholder
+mocktail
+typicode
+xcassets
+xcworkspace
