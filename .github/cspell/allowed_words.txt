@@ -1,6 +1,7 @@
 abcdefghijklmnopqrstuvwkyz
 agnostically
-chunkerjsonplaceholder
+chunker
+jsonplaceholder
 mocktail
 typicode
 xcassets
